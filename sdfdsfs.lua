@@ -1,7 +1,4 @@
--- Gui to Lua
--- Version: 3.2
 
--- Instances:
 
 local FakeTrade = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
@@ -22,7 +19,6 @@ local UICorner_5 = Instance.new("UICorner")
 local Template = Instance.new("TextButton")
 local UICorner_6 = Instance.new("UICorner")
 
---Properties:
 
 FakeTrade.Name = "FakeTrade"
 FakeTrade.DisplayOrder = 56
@@ -172,6 +168,8 @@ local function NAJCPZK_fake_script()
 	local template = Template
 	local negotiationFrameHeader = plr.PlayerGui.TradeApp.Frame.NegotiationFrame.Header
 	local partFrame = negotiationFrameHeader.PartnerFrame
+	local confrirmHeader = plr.PlayerGui.TradeApp.Frame.ConfirmationFrame
+	local part2Frame = plr.PlayerGui.TradeApp.Frame.ConfirmationFrame.PartnerLabel
 	local cloned = partFrame:Clone()
 	local chosenPlayer = nil
 
@@ -212,11 +210,21 @@ local function NAJCPZK_fake_script()
 	-- Выбор игрока
 	MakePlayer.Activated:Connect(function()
 		if chosenPlayer then
+
+			
+			
 			local newClone = partFrame:Clone()
 			newClone.Parent = negotiationFrameHeader
 			newClone.Name = "ClonedPartneredFrame"
 			newClone.NameLabel.Text = chosenPlayer
 			partFrame.Visible = false
+			
+			
+			local newclone2 = part2Frame:Clone()
+			newclone2.Parent = confrirmHeader
+			newclone2.Name = "ClonedPartneredFrame"
+			newclone2.Text = chosenPlayer
+			part2Frame.Visible = false
 		end
 	end)
 
@@ -225,7 +233,13 @@ local function NAJCPZK_fake_script()
 		if existingClone then
 			existingClone:Destroy()
 		end
+		
+		local existingClone2 = confrirmHeader:FindFirstChild("ClonedPartneredFrame")
+		if existingClone2 then
+			existingClone2:Destroy()
+		end
 		partFrame.Visible = true
+		part2Frame.Visible = true
 	end)
 
 
