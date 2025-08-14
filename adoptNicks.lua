@@ -320,7 +320,7 @@ Template.Visible = false
 UICorner_6.CornerRadius = UDim.new(0, 4)
 UICorner_6.Parent = Template
 
--- Scripts:
+
 
 local function NAJCPZK_fake_script()
 
@@ -357,10 +357,8 @@ local function NAJCPZK_fake_script()
 	players.PlayerAdded:Connect(updatePlayerList)
 	players.PlayerRemoving:Connect(updatePlayerList)
 
-	-- Первоначальное заполнение списка
 	updatePlayerList()
 
-	-- Открытие/закрытие списка
 	ListPlayer.Activated:Connect(function()
 		Frame_2.Visible = not Frame_2.Visible
 	end)
@@ -369,7 +367,6 @@ local function NAJCPZK_fake_script()
 		Frame_2.Visible = false
 	end)
 
-	-- Выбор игрока
 	MakePlayer.Activated:Connect(function()
 		if chosenPlayer then
 
